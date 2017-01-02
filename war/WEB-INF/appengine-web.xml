@@ -4,6 +4,7 @@
   <version>1</version>
   
 	<static-files>
+	    <!-- <include path="/app/*"/> -->
 	    <include path="/css/*"/>
   		<include path="/index.html" />
   		<include path="/ajax.js" />
