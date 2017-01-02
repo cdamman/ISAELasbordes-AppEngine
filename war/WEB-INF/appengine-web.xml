@@ -7,6 +7,7 @@
 	    <!-- <include path="/app/*"/> -->
 	    <include path="/css/*"/>
   		<include path="/index.html" />
+  		<include path="/privacy.html" />
   		<include path="/ajax.js" />
   		<include path="/loadKML.js" />
   		<include path="/RotateIcon.js" />
