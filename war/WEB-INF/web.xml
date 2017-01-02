@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  	<servlet>
+		<servlet-name>Send</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.SendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Send</servlet-name>
+		<url-pattern>/send</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Set</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.SetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Set</servlet-name>
+		<url-pattern>/set</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Get</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.GetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Get</servlet-name>
+		<url-pattern>/get</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Student</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.StudentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Student</servlet-name>
+		<url-pattern>/student</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Admin</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Admin</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Modify</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.ModifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Modify</servlet-name>
+		<url-pattern>/modify</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>See</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.SeeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>See</servlet-name>
+		<url-pattern>/see</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Del</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.DelServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Del</servlet-name>
+		<url-pattern>/del</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Sudo</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.SudoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Sudo</servlet-name>
+		<url-pattern>/sudo</url-pattern>
+	</servlet-mapping>
+	
+	<!-- <servlet>
+		<servlet-name>WebApp</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.WebAppServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebApp</servlet-name>
+		<url-pattern>/app</url-pattern>
+	</servlet-mapping> -->
+	
+ <servlet>
+  <servlet-name>SystemServiceServlet</servlet-name>
+  <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+  <init-param>
+   <param-name>services</param-name>
+   <param-value/>
+  </init-param>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>SystemServiceServlet</servlet-name>
+  <url-pattern>/_ah/spi/*</url-pattern>
+ </servlet-mapping>
+</web-app>

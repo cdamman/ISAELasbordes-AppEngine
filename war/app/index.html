@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html manifest="site.manifest">
+<head>
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/zocial.css">
+    <link rel="icon" type="image/png" href="../ic_launcher.png" />
+	<link rel="apple-touch-icon-precomposed" href="../ic_launcher.png" />
+    <title>ISAE Lasbordes - Web App</title>
+	<script type="text/javascript" src="geolocalisation.js"></script>
+	<script type="text/javascript" src="sendKML.js"></script>
+	<script type="text/javascript" src="processWorkers.js"></script>
+	<script type="text/javascript" src="kmlGen.js"></script>
+</head>
+<body style="font-family: Roboto,arial,sans-serif; text-align: center;" onload="checkBrowser()">
+
+<h2 style="position: fixed; top: 0px; left: 0px; right: 0px; margin: 0; height: 2em; background-color: rgb(33,33,33); box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.7); color: white;">
+<img src="../ic_launcher.png" width="48" height="48" style="vertical-align: middle;"> ISAE Lasbordes
+</h2>
+
+<p style="padding-top: 3em;"><b>Nom du vol<br>(incluant votre nom + prénom):</b></p>
+<p><input type="text" name="flightName" id="flightName" value="" placeholder="Nom du vol (incluant votre nom + prénom)" style="width: 90%; height: 2em;"></p>
+<p><button id="buttonStartStopSendKML" class="zocial secondary" onclick="startStopSendKML()" style="width: 90%; height: 5em;">Démarrer l'enregistrement du vol</button></p>
+
+<p><b>Réception GPS :</b></p>
+<p id="geolocation">La réception GPS n'est pas activée</p>
+<p><b>Envoi des données :</b></p>
+<p id="sending">En attente d'enregistrement</p>
+
+<script>
+var geolocation = document.getElementById("geolocation");
+var sending = document.getElementById("sending");
+var result = document.getElementById("result");
+var flightName = document.getElementById("flightName");
+var buttonStartStopSendKML = document.getElementById("buttonStartStopSendKML");
+
+function checkBrowser() {
+	if(!navigator.geolocation) {
+        geolocation.innerHTML = "Désolé, votre naviguateur ne permet pas la géolocalisation...";
+	} else if(typeof(Storage) == "undefined") {
+		sending.innerHTML = "Désolé, votre naviguateur ne supporte pas le Web Storage...";
+	} else {
+		localStorage.setItem("kmlFile", "");
+		localStorage.setItem("kmlFilename", "");
+		if(!localStorage.getItem("kmlTitle"))
+			flightName.innerHTML = localStorage.getItem("kmlTitle");
+		localStorage.setItem("kmlDescription", "");
+		startGPSListener();
+		GPSListener();
+		SendKML();
+	}
+}
+
+function showKMLFile() {
+	// Retrieve
+	var rawStr = localStorage.getItem("kmlFile");
+	geolocation.innerHTML = rawStr.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+		return '&#'+i.charCodeAt(0)+';';
+	});
+}
+
+// On vérifie si un nouveau cache est disponible au chargement de la page
+window.addEventListener('load', function(e) {
+	window.applicationCache.addEventListener('updateready', function(e) {
+		if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+			// Là le navigateur a téléchargé un nouveau cache
+			// On change le cache et on recharge la page
+			window.applicationCache.swapCache();
+			window.location.reload();
+		} else {
+			// Le cache Manifest n'a pas changé, on ne fait rien
+		}
+	}, false);
+}, false);
+
+function zeroPad(nr, base) {
+	var  len = (String(base).length - String(nr).length)+1;
+	return (len > 0) ? new Array(len).join('0')+nr : nr;
+}
+
+</script>
+
+</body>
+</html>
+

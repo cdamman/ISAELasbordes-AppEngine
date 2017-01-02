@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# Version: 20161130-010101
+CACHE:
+index.html
+geolocalisation.js
+kmlGen.js
+processWorkers.js
+sendKML.js
+../ic_launcher.png
+../css/zocial.css
+NETWORK:
+*
