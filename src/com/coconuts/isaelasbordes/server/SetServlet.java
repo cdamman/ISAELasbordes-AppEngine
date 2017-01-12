@@ -37,7 +37,7 @@ public class SetServlet extends HttpServlet {
 			} else {
 				Student s = null;
 				
-	        	Query query = pm.newQuery(Student.class, "deviceRegistrationID == '"+deviceId+"'");
+	        	Query query = pm.newQuery(Student.class, "deviceRegistrationID == '"+deviceId+"' || email == '"+email+"'");
 	        	
 	            try {
 	                @SuppressWarnings("unchecked")
@@ -47,6 +47,7 @@ public class SetServlet extends HttpServlet {
 				    		s = results.iterator().next();
 				    		s.setName(name);
 				    		s.setEmail(email);
+				    		s.setDeviceRegistrationID(deviceId);
 				    		s.setInstructor(instructor);
 							resp.getWriter().println("OK");
                 		} else {
