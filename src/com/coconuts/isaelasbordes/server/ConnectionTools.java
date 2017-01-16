@@ -74,14 +74,14 @@ public class ConnectionTools {
 	public static ArrayList<Student> studentAuthorized(HttpSession session, String email, String mdp) {
 		ArrayList<Student> response = new ArrayList<Student>();
 		if(session != null) {
-			String deviceID = (String) session.getAttribute("email");
-			if (deviceID != null) {
-				if(deviceID.equals(Student.getWebAppStudent().getDeviceRegistrationID())) {
+			String emailSession = (String) session.getAttribute("email");
+			if (emailSession != null) {
+				if(emailSession.equals(Student.getWebAppStudent().getEmail())) {
 					response.add(Student.getWebAppStudent());
 				} else {
 					PersistenceManager pm = PMF.get().getPersistenceManager();
 	        		try {
-						Query q = pm.newQuery(Student.class, "email == '"+email+"'");
+						Query q = pm.newQuery(Student.class, "email == '"+emailSession+"'");
 				        
 				    	@SuppressWarnings("unchecked")
 				    	List<Student> results = (List<Student>) q.execute();
@@ -100,16 +100,18 @@ public class ConnectionTools {
 				    		session.setAttribute("email", email);
 		        		} else {
 			    	        PersistenceManager pm = PMF.get().getPersistenceManager();
-			        		try {				            
+			        		try {
 								Query q = pm.newQuery(Student.class, "email == '"+email+"'");
 						        
 						    	@SuppressWarnings("unchecked")
 						    	//if(mdp != null && mdp.equals("isaelasbordes")) {
 							    	List<Student> results = (List<Student>) q.execute();
-							    	for(Student s : results) {
-							    		response.add(s);
-							    	}
-						    		session.setAttribute("email", email);
+						    		if(!results.isEmpty()) {
+								    	for(Student s : results) {
+								    		response.add(s);
+								    	}
+							    		session.setAttribute("email", email);
+						    		}
 						    	//}
 				            } finally {
 				                pm.close();
