@@ -3,6 +3,7 @@ package com.coconuts.isaelasbordes.server;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -70,22 +71,22 @@ public class ConnectionTools {
 		return response;
 	}
 
-	public static Student studentAuthorized(HttpSession session, String email, String mdp) {
-		Student response = null;
+	public static ArrayList<Student> studentAuthorized(HttpSession session, String email, String mdp) {
+		ArrayList<Student> response = new ArrayList<Student>();
 		if(session != null) {
-			String deviceID = (String) session.getAttribute("deviceRegistrationID");
+			String deviceID = (String) session.getAttribute("email");
 			if (deviceID != null) {
 				if(deviceID.equals(Student.getWebAppStudent().getDeviceRegistrationID())) {
-					response = Student.getWebAppStudent();
+					response.add(Student.getWebAppStudent());
 				} else {
 					PersistenceManager pm = PMF.get().getPersistenceManager();
 	        		try {
-						Query q = pm.newQuery(Student.class, "deviceRegistrationID == '"+deviceID+"'");
+						Query q = pm.newQuery(Student.class, "email == '"+email+"'");
 				        
 				    	@SuppressWarnings("unchecked")
-						List<Student> results = (List<Student>) q.execute();
-				    	if(!results.isEmpty() && results.size() == 1) {
-				    		response = results.iterator().next();
+				    	List<Student> results = (List<Student>) q.execute();
+				    	for(Student s : results) {
+				    		response.add(s);
 				    	}
 		            } finally {
 		                pm.close();
@@ -95,19 +96,21 @@ public class ConnectionTools {
 				if(email != null) {
 		        	if(!email.isEmpty()) {
 		        		if(email.equals(Student.getWebAppStudent().getEmail())) {
-		        			response = Student.getWebAppStudent();
-				    		session.setAttribute("deviceRegistrationID", response.getDeviceRegistrationID());
+		        			response.add(Student.getWebAppStudent());
+				    		session.setAttribute("email", email);
 		        		} else {
 			    	        PersistenceManager pm = PMF.get().getPersistenceManager();
 			        		try {				            
 								Query q = pm.newQuery(Student.class, "email == '"+email+"'");
 						        
 						    	@SuppressWarnings("unchecked")
-								List<Student> results = (List<Student>) q.execute();
-						    	if(!results.isEmpty() && results.size() == 1 && mdp != null && mdp.equals("isaelasbordes")) {
-						    		response = results.iterator().next();
-						    		session.setAttribute("deviceRegistrationID", response.getDeviceRegistrationID());
-						    	}
+						    	//if(mdp != null && mdp.equals("isaelasbordes")) {
+							    	List<Student> results = (List<Student>) q.execute();
+							    	for(Student s : results) {
+							    		response.add(s);
+							    	}
+						    		session.setAttribute("email", email);
+						    	//}
 				            } finally {
 				                pm.close();
 				            }

@@ -89,6 +89,15 @@
 		<url-pattern>/app</url-pattern>
 	</servlet-mapping> -->
 	
+	<servlet>
+		<servlet-name>WebIOS</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.WebIOSServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebIOS</servlet-name>
+		<url-pattern>/ios</url-pattern>
+	</servlet-mapping>
+	
  <servlet>
   <servlet-name>SystemServiceServlet</servlet-name>
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>

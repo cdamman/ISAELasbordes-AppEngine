@@ -1,6 +1,7 @@
 package com.coconuts.isaelasbordes.server;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +21,8 @@ public class SeeServlet extends HttpServlet {
         String date = (String) req.getParameter("date");
 
 		Instructor instructor = ConnectionTools.instructorAuthorized(session, null, null);
-		Student student = ConnectionTools.studentAuthorized(session, null, null);
-        if(instructor != null || student != null) {
+		ArrayList<Student> students = ConnectionTools.studentAuthorized(session, null, null);
+        if(instructor != null || (students != null && !students.isEmpty())) {
         	PersistenceManager pm = PMF.get().getPersistenceManager();
 	        try {
     			if (deviceId == null || date == null) {
