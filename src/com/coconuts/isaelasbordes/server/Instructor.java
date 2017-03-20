@@ -66,8 +66,8 @@ public class Instructor {
 		this.mdpHash = mdpHash;
 	}
 
-    private static Instructor allInstructor  = new Instructor("Tous", "all@isaelasbordes.appspot.com", "a181a603769c1f98ad927e7367c7aa51", -1);
-    private static Instructor testInstructor = new Instructor("Sans instructeur", "test@isaelasbordes.appspot.com", "098f6bcd4621d373cade4e832627b4f6", 0);
+    private static Instructor allInstructor  = new Instructor("Tous", "all@volmoteurlasbordes.appspot.com", "a181a603769c1f98ad927e7367c7aa51", -1);
+    private static Instructor testInstructor = new Instructor("Sans instructeur", "test@volmoteurlasbordes.appspot.com", "098f6bcd4621d373cade4e832627b4f6", 0);
     public  static Instructor getAllInstructor() {
     	return allInstructor;
     }

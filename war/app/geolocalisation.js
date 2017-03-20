@@ -20,7 +20,7 @@ function showError(error) {
 	errorBool = 1;
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            geolocation.innerHTML = "Géolocalisation refusée par l'utilisateur, ou SSL (https) non activé...<br><a href=\"https://isaelasbordes.appspot.com/app/\">Cliquez ici</a> pour réessayer"
+            geolocation.innerHTML = "Géolocalisation refusée par l'utilisateur, ou SSL (https) non activé...<br><a href=\"https://volmoteurlasbordes.appspot.com/app/\">Cliquez ici</a> pour réessayer"
             break;
         case error.POSITION_UNAVAILABLE:
             geolocation.innerHTML = "En attente d'un fix GPS...<br>Position non disponible"

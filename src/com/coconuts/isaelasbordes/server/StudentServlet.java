@@ -91,7 +91,7 @@ public class StudentServlet extends HttpServlet {
         			"<tr><td><b>Adresse email</b></td><td><input type=\"text\" placeholder=\"Entrez votre adresse email\" name=\"email\" required></td></tr>"+
         			//"<tr><td><b>Mot de passe</b></td><td><input type=\"password\" placeholder=\"Entrez votre mot de passe\" name=\"mdp\" required></td></tr>"+
         			"</table><br/><button class=\"zocial secondary\" type=\"submit\">Se connecter</button></center></form>" +
-        			//"<center><hr width=\"400em\" style=\"margin-bottom: 1em;\"><h3>Connexion<br><span style=\"font-size: 0.8em;\">Vols enregistrés avec l'application web</span></h3><a class=\"zocial secondary\" href=\"student?email=webapp@isaelasbordes.appspot.com\">Se connecter</a></center>" +
+        			//"<center><hr width=\"400em\" style=\"margin-bottom: 1em;\"><h3>Connexion<br><span style=\"font-size: 0.8em;\">Vols enregistrés avec l'application web</span></h3><a class=\"zocial secondary\" href=\"student?email=webapp@volmoteurlasbordes.appspot.com\">Se connecter</a></center>" +
         			"</body></html>");
     	}
     }

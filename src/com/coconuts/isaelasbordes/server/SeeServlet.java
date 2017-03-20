@@ -70,7 +70,7 @@ public class SeeServlet extends HttpServlet {
 		resp.getWriter().println("    <div style=\"margin: 0.5em; height: 5%\">");
 		resp.getWriter().println("      <div style=\"float: left;\">Heure: <span id=\"tme\"></span><br/>Cap: <span id=\"hdg\"></span></div><div style=\"float: right;\">Vitesse sol: <span id=\"spd\"></span><br/>Altitude: <span id=\"alt\"></span></div>");
 		resp.getWriter().println("      <div style=\"text-align:center;\"><b id=\"name\">Vol de "+name+"</b></div>");
-		resp.getWriter().println("      <div style=\"text-align:center;\"><a href=\"https://isaelasbordes.appspot.com/get?deviceID="+deviceId+"&date="+date+"\">https://isaelasbordes.appspot.com/get?deviceID="+deviceId+"&date="+date+"</a></div>");
+		resp.getWriter().println("      <div style=\"text-align:center;\"><a href=\"https://volmoteurlasbordes.appspot.com/get?deviceID="+deviceId+"&date="+date+"\">https://isaelasbordes.appspot.com/get?deviceID="+deviceId+"&date="+date+"</a></div>");
 		resp.getWriter().println("    </div>");
 		resp.getWriter().println("    <div id=\"map\"></div>");
 		resp.getWriter().println("    <script>");
@@ -103,7 +103,7 @@ public class SeeServlet extends HttpServlet {
 		resp.getWriter().println("	}");
 		resp.getWriter().println("	");
 		resp.getWriter().println("	function loadKML() {");
-		resp.getWriter().println("	  URL = 'https://isaelasbordes.appspot.com/get?deviceID="+deviceId+"&date="+date+"&dummy='+(new Date()).getTime();");
+		resp.getWriter().println("	  URL = 'https://volmoteurlasbordes.appspot.com/get?deviceID="+deviceId+"&date="+date+"&dummy='+(new Date()).getTime();");
 		resp.getWriter().println("	  loadLastPosition();");
 		resp.getWriter().println("	}");
 		resp.getWriter().println("	");

@@ -1,2 +1,2 @@
-# ISAELasbordes-AppEngine
-Google AppEngine server for ISAE Lasbordes application
+# VolMoteurLasbordes-AppEngine
+Google AppEngine server for VolMoteurLasbordes application

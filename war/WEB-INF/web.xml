@@ -36,12 +36,12 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>Admin</servlet-name>
-		<servlet-class>com.coconuts.isaelasbordes.server.AdminServlet</servlet-class>
+		<servlet-name>Instructor</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.InstructorServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Admin</servlet-name>
-		<url-pattern>/admin</url-pattern>
+		<servlet-name>Instructor</servlet-name>
+		<url-pattern>/instructor</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -72,12 +72,12 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>Sudo</servlet-name>
-		<servlet-class>com.coconuts.isaelasbordes.server.SudoServlet</servlet-class>
+		<servlet-name>Admin</servlet-name>
+		<servlet-class>com.coconuts.isaelasbordes.server.AdminServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Sudo</servlet-name>
-		<url-pattern>/sudo</url-pattern>
+		<servlet-name>Admin</servlet-name>
+		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 	
 	<!-- <servlet>

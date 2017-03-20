@@ -70,7 +70,7 @@ public class Student {
 		this.instructor = instructor;
 	}
 	
-	private static Student webApp = new Student("0000000000000000", "Application web", "webapp@isaelasbordes.appspot.com", Instructor.getAllInstructor().getInstructorID());
+	private static Student webApp = new Student("0000000000000000", "Application web", "webapp@volmoteurlasbordes.appspot.com", Instructor.getAllInstructor().getInstructorID());
 	public  static Student getWebAppStudent() {
 		return webApp;
 	}

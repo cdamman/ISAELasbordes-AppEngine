@@ -35,7 +35,7 @@ public class DelServlet extends HttpServlet {
 						"	window.location.replace(\"del?all=true&confirm=true\");" +
 						"}" +
 						"else {" +
-						"	window.location.replace(\"admin\");" +
+						"	window.location.replace(\"instructor\");" +
 						"}" +
 		                "</script>");
 		        	} else if(confirm.equals("true")) {
@@ -57,16 +57,16 @@ public class DelServlet extends HttpServlet {
 						                		pm.deletePersistent(f);
 						                		resp.getWriter().print("OK<br>");
 						                	}
-						                	resp.getWriter().println("<meta http-equiv=\"Refresh\" content=\"2;URL=admin\">");
+						                	resp.getWriter().println("<meta http-equiv=\"Refresh\" content=\"2;URL=instructor\">");
 						                } else {
-						                    resp.getWriter().println("Aucun vol trouvé...<br><meta http-equiv=\"Refresh\" content=\"2;URL=admin\">");
+						                    resp.getWriter().println("Aucun vol trouvé...<br><meta http-equiv=\"Refresh\" content=\"2;URL=instructor\">");
 						                }
 			        	            } finally {
 			        	                query2.closeAll();
 			        	            }
 			                    }
 			                } else {
-			                    resp.getWriter().println("Aucun vol trouvé...<br><meta http-equiv=\"Refresh\" content=\"2;URL=admin\">");
+			                    resp.getWriter().println("Aucun vol trouvé...<br><meta http-equiv=\"Refresh\" content=\"2;URL=instructor\">");
 			                }
 			            } finally {
 			                query.closeAll();
@@ -86,7 +86,7 @@ public class DelServlet extends HttpServlet {
 							"	window.location.replace(\"del?deviceID="+deviceId+"&date="+date+"&confirm=true\");" +
 							"}" +
 							"else {" +
-							"	window.location.replace(\"admin\");" +
+							"	window.location.replace(\"instructor\");" +
 							"}" +
 			                "</script>");
 			        	} else if(confirm.equals("true")) {
@@ -98,9 +98,9 @@ public class DelServlet extends HttpServlet {
 						    		FlightKML flight = results.iterator().next();
 			                		resp.getWriter().println("Suppression du vol du "+flight.getHumanDate()+" ... ");
 			                		pm.deletePersistent(flight);
-			                		resp.getWriter().print("OK<br><meta http-equiv=\"Refresh\" content=\"2;URL=admin\">");
+			                		resp.getWriter().print("OK<br><meta http-equiv=\"Refresh\" content=\"2;URL=instructor\">");
 						    	} else {
-				                    resp.getWriter().println("Aucun vol trouvé...<br><meta http-equiv=\"Refresh\" content=\"2;URL=admin\">");
+				                    resp.getWriter().println("Aucun vol trouvé...<br><meta http-equiv=\"Refresh\" content=\"2;URL=instructor\">");
 						    	}
 				            } finally {
 				                q.closeAll();

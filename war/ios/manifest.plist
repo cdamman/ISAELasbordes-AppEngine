@@ -11,7 +11,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://isaelasbordes.appspot.com/ios/ISAELasbordes.ipa</string>
+					<string>https://volmoteurlasbordes.appspot.com/ios/VolMoteurLasbordes.ipa</string>
 				</dict>
 			</array>
 			<key>metadata</key>
@@ -23,7 +23,7 @@
 				<key>kind</key>
 				<string>software</string>
 				<key>title</key>
-				<string>ISAE Lasbordes</string>
+				<string>Vol Moteur Lasbordes</string>
 			</dict>
 		</dict>
 	</array>

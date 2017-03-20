@@ -29,7 +29,7 @@ public class ModifyServlet extends HttpServlet {
         String mdp = (String) req.getParameter("mdp");
 
         UserService userService = null;
-        boolean isSudo = false;
+        boolean isAdmin = false;
         
         Instructor instr = ConnectionTools.instructorAuthorized(req.getSession(true), null, null);
         boolean isInstructor = (instr != null && instructorID != null && String.valueOf(instr.getInstructorID()).equals(instructorID));
@@ -37,10 +37,10 @@ public class ModifyServlet extends HttpServlet {
     	if (!isInstructor) {
             userService = UserServiceFactory.getUserService();
             User user = userService.getCurrentUser();
-            isSudo = (user != null && (user.getEmail().equals("cocod.tm@gmail.com") || user.getEmail().equals("dev.coconuts@gmail.com")));
+            isAdmin = (user != null && (user.getEmail().equals("cocod.tm@gmail.com") || user.getEmail().equals("dev.coconuts@gmail.com")));
     	}
     	
-    	if(isSudo || isInstructor) {
+    	if(isAdmin || isInstructor) {
     		if(name != null && email != null && mdp != null && !name.isEmpty() && !email.isEmpty() && !mdp.isEmpty()) {
         		PersistenceManager pm = PMF.get().getPersistenceManager();
 		        
@@ -60,10 +60,10 @@ public class ModifyServlet extends HttpServlet {
 	                	if(!results.isEmpty() && results.size() == 1) {
 				    		instructor = results.iterator().next();
 				    	} else {
-				    		if(isSudo)
-				    			resp.getWriter().println("Aucun instructeur trouvé...<br><meta http-equiv=\"Refresh\" content=\"3;URL=sudo\">");
-				    		else
+				    		if(isAdmin)
 				    			resp.getWriter().println("Aucun instructeur trouvé...<br><meta http-equiv=\"Refresh\" content=\"3;URL=admin\">");
+				    		else
+				    			resp.getWriter().println("Aucun instructeur trouvé...<br><meta http-equiv=\"Refresh\" content=\"3;URL=instructor\">");
 				    		return;
 				    	}
 		            } finally {
@@ -75,17 +75,17 @@ public class ModifyServlet extends HttpServlet {
 		        	instructor.setMdpHash(mdpHash);
 		        } catch (NoSuchAlgorithmException e) {
 	    			e.printStackTrace();
-		    		if(isSudo)
-		    			resp.getWriter().println("Erreur<br><meta http-equiv=\"Refresh\" content=\"3;URL=sudo\">");
-		    		else
+		    		if(isAdmin)
 		    			resp.getWriter().println("Erreur<br><meta http-equiv=\"Refresh\" content=\"3;URL=admin\">");
+		    		else
+		    			resp.getWriter().println("Erreur<br><meta http-equiv=\"Refresh\" content=\"3;URL=instructor\">");
 				} finally {
 		            pm.close();
 		        }
-	    		if(isSudo)
-	    			resp.getWriter().println("Instructeur "+name+" modifié !<br><meta http-equiv=\"Refresh\" content=\"3;URL=sudo\">");
+	    		if(isAdmin)
+	    			resp.getWriter().println("Instructeur "+name+" modifié !<br><meta http-equiv=\"Refresh\" content=\"3;URL=admin\">");
 	    		else
-			        resp.getWriter().println("Instructeur "+name+" modifié !<br><meta http-equiv=\"Refresh\" content=\"3;URL=admin\">");
+			        resp.getWriter().println("Instructeur "+name+" modifié !<br><meta http-equiv=\"Refresh\" content=\"3;URL=instructor\">");
     		} else {
 	    		PersistenceManager pm = PMF.get().getPersistenceManager();
 		        
@@ -98,25 +98,25 @@ public class ModifyServlet extends HttpServlet {
 	                	if(!results.isEmpty() && results.size() == 1) {
 				    		instructor = results.iterator().next();
 				    	} else {
-				    		if(isSudo)
-				    			resp.getWriter().println("Aucun instructeur trouvé...<br><meta http-equiv=\"Refresh\" content=\"3;URL=sudo\">");
-				    		else
+				    		if(isAdmin)
 				    			resp.getWriter().println("Aucun instructeur trouvé...<br><meta http-equiv=\"Refresh\" content=\"3;URL=admin\">");
+				    		else
+				    			resp.getWriter().println("Aucun instructeur trouvé...<br><meta http-equiv=\"Refresh\" content=\"3;URL=instructor\">");
 				    		return;
 				    	}
 		            } finally {
 		                query.closeAll();
 		            }
-		            if(isSudo)
+		            if(isAdmin)
 		    			resp.getWriter().println("<html>"+
 					        "<head>"+
 					        "  <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"><link rel=\"icon\" type=\"image/ico\" href=\"favicon.ico\" />"+
 					        "  <link rel=\"stylesheet\" type=\"text/css\" href=\"css/zocial.css\">" +
-					        "  <title>Super Utilisateur</title>"+
+					        "  <title>Administrateur</title>"+
 					        "</head>"+
 					        ""+
 					        "<body style=\"font-family: Roboto,arial,sans-serif;\">"+
-					        "  <div style=\"float: left;\"><font size=\"6\" face=\"Comic Sans MS\">Super Utilisateur</font></div><div style=\"float: right;\"><a class=\"zocial secondary\" href =\"sudo?new=true\">Nouvel instructeur</a></div><br style=\"line-height: 35px;\"/><div style=\"float: right;\"><a class=\"zocial secondary\" href =\""+userService.createLogoutURL(req.getRequestURI())+"\">Déconnexion</a></div>");
+					        "  <div style=\"float: left;\"><font size=\"6\" face=\"Comic Sans MS\">Administrateur</font></div><div style=\"float: right;\"><a class=\"zocial secondary\" href =\"admin?new=true\">Nouvel instructeur</a></div><br style=\"line-height: 35px;\"/><div style=\"float: right;\"><a class=\"zocial secondary\" href =\""+userService.createLogoutURL(req.getRequestURI())+"\">Déconnexion</a></div>");
 		    		else
 		    			resp.getWriter().println("<html>"+
 	    			        "<head>"+
@@ -126,7 +126,7 @@ public class ModifyServlet extends HttpServlet {
 	    			        "</head>"+
 	    			        ""+
 	    			        "<body style=\"font-family: Roboto,arial,sans-serif;\">"+
-	    			        "  <div style=\"float: left;\"><font size=\"6\" face=\"Comic Sans MS\">Zone pilote instructeur</font></div><div style=\"float: right;\">Bienvenue "+instructor.getName()+"</div><br style=\"line-height: 22px;\"/><div style=\"float: right;\"><a class=\"zocial secondary\" href =\"modify?instructorID="+instructor.getInstructorID()+"\">Modifier mon compte</a></div><br style=\"line-height: 35px;\"/><div style=\"float: right;\"><a class=\"zocial secondary\" href =\"admin?logout=true\">Déconnexion</a></div>");
+	    			        "  <div style=\"float: left;\"><font size=\"6\" face=\"Comic Sans MS\">Zone pilote instructeur</font></div><div style=\"float: right;\">Bienvenue "+instructor.getName()+"</div><br style=\"line-height: 22px;\"/><div style=\"float: right;\"><a class=\"zocial secondary\" href =\"modify?instructorID="+instructor.getInstructorID()+"\">Modifier mon compte</a></div><br style=\"line-height: 35px;\"/><div style=\"float: right;\"><a class=\"zocial secondary\" href =\"instructor?logout=true\">Déconnexion</a></div>");
 		            
 	    			resp.getWriter().println("<br/><br/><br/>"+
 	        			"<form action=\"modify\" method=\"post\"><center><table>"+

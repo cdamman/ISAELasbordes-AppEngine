@@ -104,7 +104,7 @@ public class ConnectionTools {
 								Query q = pm.newQuery(Student.class, "email == '"+email+"'");
 						        
 						    	@SuppressWarnings("unchecked")
-						    	//if(mdp != null && mdp.equals("isaelasbordes")) {
+						    	//if(mdp != null && mdp.equals("volmoteurlasbordes")) {
 							    	List<Student> results = (List<Student>) q.execute();
 						    		if(!results.isEmpty()) {
 								    	for(Student s : results) {

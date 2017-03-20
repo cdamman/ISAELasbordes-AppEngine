@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SetServlet extends HttpServlet {
 	private static final long serialVersionUID = -1408050888501698802L;
 
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
 
@@ -36,30 +37,57 @@ public class SetServlet extends HttpServlet {
 				resp.getWriter().println("Error empty");
 			} else {
 				Student s = null;
-				
-	        	Query query = pm.newQuery(Student.class, "deviceRegistrationID == '"+deviceId+"' || email == '"+email+"'");
+
+	        	Query queryDeviceId = pm.newQuery(Student.class, "deviceRegistrationID == '"+deviceId+"'");
+	        	Query queryEmail    = pm.newQuery(Student.class, "email == '"+email+"'");
 	        	
 	            try {
-	                @SuppressWarnings("unchecked")
-					List<Student> results = (List<Student>) query.execute();
-                	if(!results.isEmpty()) {
-                		if(results.size() == 1) {
-				    		s = results.iterator().next();
-				    		s.setName(name);
-				    		s.setEmail(email);
-				    		s.setDeviceRegistrationID(deviceId);
-				    		s.setInstructor(instructor);
-							resp.getWriter().println("OK");
+					List<Student> resultsDeviceId = (List<Student>) queryDeviceId.execute();
+					List<Student> resultsEmail    = (List<Student>) queryEmail.execute();
+					
+					/* Cas:
+					 * - Etudiant pas encore inscrit
+					 *   - Nominal
+					 *   - Nouvel email deja existant
+					 * - Etudiant inscrit qui change son email
+					 *   - Nominal
+					 *   - Meme email
+					 *   - Nouvel email deja existant
+					 */
+                	if(!resultsDeviceId.isEmpty()) { // inscrit ...
+                		if(resultsDeviceId.size() == 1) { // ... et unique
+                			s = resultsDeviceId.iterator().next();
+                			if(resultsEmail.isEmpty()) { // nominal
+                				s.setName(name);
+			    				s.setEmail(email);
+			    				s.setInstructor(instructor);
+					    		resp.getWriter().println("OK");
+                			} else if(resultsEmail.size() == 1) { // existant
+	                			// si c'est les memes ...
+				    			if(s.getKey().getId() == resultsEmail.iterator().next().getKey().getId()) {
+				    				s.setName(name);
+				    				s.setEmail(email);
+				    				s.setInstructor(instructor);
+						    		resp.getWriter().println("OK");
+					    		} else { // ... sinon c'est que differents !
+		    						resp.getWriter().println("Erreur: email deja assigne");
+					    		}
+                			}
                 		} else {
-    						resp.getWriter().println("Erreur: élèves multiples");
+    						resp.getWriter().println("Erreur: eleves multiples");
                 		}
-			    	} else {
-						s = new Student(deviceId, name, email, instructor);
-						pm.makePersistent(s);
-						resp.getWriter().println("OK");
+			    	} else { // pas encore inscrit
+			    		if(!resultsEmail.isEmpty()) { // email deja assignee
+    						resp.getWriter().println("Erreur: email deja assigne");
+			    		} else { // nominal
+			    			s = new Student(deviceId, name, email, instructor);
+							pm.makePersistent(s);
+							resp.getWriter().println("OK");
+			    		}
 			    	}
 	            } finally {
-	                query.closeAll();
+	            	queryDeviceId.closeAll();
+	            	queryEmail.closeAll();
 	            }
 			}
         } finally {

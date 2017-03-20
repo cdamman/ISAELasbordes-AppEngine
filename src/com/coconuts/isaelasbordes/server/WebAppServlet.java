@@ -10,7 +10,7 @@ public class WebAppServlet extends HttpServlet {
 	private static final long serialVersionUID = 770260676398954172L;
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.sendRedirect("https://isaelasbordes.appspot.com/app/");
+		resp.sendRedirect("https://volmoteurlasbordes.appspot.com/app/");
     }
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
